@@ -83,23 +83,12 @@ public class KeyboardView extends FrameLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.rl_hide:
-            case R.id.rl_delete:
-            case R.id.tv_zero:
-            case R.id.tv_one:
-            case R.id.tv_two:
-            case R.id.tv_three:
-            case R.id.tv_four:
-            case R.id.tv_five:
-            case R.id.tv_six:
-            case R.id.tv_seven:
-            case R.id.tv_eight:
-            case R.id.tv_nine:
-                if (mOnInputListener != null) {
-                    mOnInputListener.onInput(v);
-                }
-                break;
+        int i = v.getId();
+        if (i == R.id.rl_hide || i == R.id.rl_delete || i == R.id.tv_zero || i == R.id.tv_one || i == R.id.tv_two || i == R.id.tv_three || i == R.id.tv_four || i == R.id.tv_five || i == R.id.tv_six || i == R.id.tv_seven || i == R.id.tv_eight || i == R.id.tv_nine) {
+            if (mOnInputListener != null) {
+                mOnInputListener.onInput(v);
+            }
+
         }
     }
 
