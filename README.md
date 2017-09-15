@@ -16,7 +16,7 @@
 **STEP2**   Add the dependency
 
 		dependencies {
-	        compile 'com.github.chencanlin:PayView:1.0'
+	        compile 'com.github.chencanlin:PayView:1.1'
 	}
 
 
@@ -28,3 +28,49 @@
 
 	
 **使用：**
+
+xml 声明：
+
+	<com.ccl.perfectisshit.payview.widget.KeyboardView
+        android:id="@+id/kbv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/kbv"
+        android:background="@android:color/white"
+        android:paddingBottom="30dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="30dp">
+
+        <com.ccl.perfectisshit.payview.widget.PayView
+            android:id="@+id/pv"
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:color/white"
+            android:hint="edittext"
+            android:inputType="text"
+            app:passwordMode="cipherTextMode"// 设置密码输入模式：明文与暗文
+            />
+    </RelativeLayout>
+
+代码：
+	
+	mPayView = findViewById(R.id.pv);
+    mKeyBoardView = findViewById(R.id.kbv);
+    mPayView.setKeyBoardView(mKeyBoardView);
+
+设置输入模式：
+
+	mPayView.setPasswordMode(); // MODE_PLAIN_TEXT   MODE_CIPHER_TEXT 
+
+获取密码：
+	
+	mPayView.getPassword()
