@@ -1,10 +1,10 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "com.ccl.perfectisshit.payview"
+//        applicationId "com.ccl.perfectisshit.payview"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1

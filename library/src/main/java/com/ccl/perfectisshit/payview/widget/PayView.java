@@ -24,11 +24,9 @@ import static com.ccl.perfectisshit.payview.util.Utils.dp2px;
 public class PayView extends View {
     private Paint mPaint;
 
-    private static final int KEY_GET_WIDTH = 0;
-    private static final int KEY_GET_HEIGHT = 1;
     public static final int MODE_CIPHER_TEXT = 0;
     public static final int MODE_PLAIN_TEXT = 1;
-    private static final int CIPHER_TEXT_CIRCLE_RADIU = 20;
+    private static final int CIPHER_TEXT_CIRCLE_RADIUS = 20;
     private int mMeasureWidth;
     private int mMeasuredHeight;
     private KeyboardView mKeyBoardView;
@@ -101,7 +99,7 @@ public class PayView extends View {
                 mPaint.setStyle(Paint.Style.FILL);
                 Point point = (Point) centerPoint.get(i);
                 if (passwordMode == MODE_CIPHER_TEXT) {
-                    canvas.drawCircle(point.x, point.y, CIPHER_TEXT_CIRCLE_RADIU, mPaint);
+                    canvas.drawCircle(point.x, point.y, CIPHER_TEXT_CIRCLE_RADIUS, mPaint);
                 } else {
                     mPaint.setTextSize(Utils.sp2Px(getContext(), 15));
                     Rect rect = new Rect();
@@ -126,7 +124,7 @@ public class PayView extends View {
         mPaint.setStrokeWidth(6);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(getContext().getResources().getColor(R.color.inputBorderColor));
-        canvas.drawRoundRect(0, 0, mMeasureWidth, mMeasuredHeight, 5, 5, mPaint);
+        canvas.drawRect(0, 0, mMeasureWidth, mMeasuredHeight, mPaint);
     }
 
     public void setKeyBoardView(KeyboardView keyBoardView) {
