@@ -107,7 +107,7 @@ public class PayView extends View {
                     Rect rect = new Rect();
                     String charAt = String.valueOf(password.charAt(i));
                     mPaint.getTextBounds(charAt, 0, charAt.length(), rect);
-                    canvas.drawText(String.valueOf(password.charAt(i)), point.x - rect.width() / 2, point.y + rect.height()/2, mPaint);
+                    canvas.drawText(String.valueOf(password.charAt(i)), point.x - rect.width() / 2, point.y + rect.height() / 2, mPaint);
                 }
             }
         }
@@ -151,12 +151,12 @@ public class PayView extends View {
         }
     }
 
-    public void setPasswordMode(int mode){
+    public void setPasswordMode(int mode) {
         passwordMode = mode;
         postInvalidate();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 }
