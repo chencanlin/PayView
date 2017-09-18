@@ -16,7 +16,7 @@
 **STEP2**   Add the dependency
 
 		dependencies {
-	        compile 'com.github.chencanlin:PayView:1.1'
+	        compile 'com.github.chencanlin:PayView:1.2'
 	}
 
 
@@ -24,7 +24,7 @@
 
 **密码输入控件，效果演示：**
 
-![](https://i.imgur.com/3jsWici.gif)
+![](https://i.imgur.com/8CRuUjl.gif)
 
 	
 **使用：**
