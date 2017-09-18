@@ -1,29 +1,36 @@
 package com.ccl.perfectisshit.payview.widget;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.ccl.perfectisshit.payview.R;
+import com.ccl.perfectisshit.payview.adapter.KeyboardAdapter;
+import com.ccl.perfectisshit.payview.bean.KeyboardItemBean;
 import com.ccl.perfectisshit.payview.util.Utils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by ccl on 2017/9/14.
  */
 
-public class KeyboardView extends FrameLayout implements View.OnClickListener {
+public class KeyboardView extends FrameLayout {
 
-    private Paint mPaint;
-    private int mMeasuredWidth;
-    private int mMeasuredHeight;
-    private OnInputListener mOnInputListener;
-    private int mSingleHeight;
-    private int mSingleWidth;
+    private static final int[] KEYBOARD_NUMBER = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private static final int INDEX_BLANK_ITEM = 9;
+    private RecyclerView mRv;
+
+    private List<KeyboardItemBean> data = new ArrayList<>();
+    private KeyboardAdapter mKeyboardAdapter;
 
     public KeyboardView(Context context) {
         this(context, null);
@@ -39,32 +46,37 @@ public class KeyboardView extends FrameLayout implements View.OnClickListener {
     }
 
     private void init() {
-        initPaint();
         initView();
+        initData();
+        setData();
+    }
+
+    private void setData() {
+        mKeyboardAdapter = new KeyboardAdapter(data);
+        KeyboardRecyclerViewDecoration keyboardRecyclerViewDecoration = new KeyboardRecyclerViewDecoration(getResources().getDrawable(R.drawable.shape_keyboard_rv_line));
+        mRv.addItemDecoration(keyboardRecyclerViewDecoration);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+        mRv.setLayoutManager(gridLayoutManager);
+        mRv.setAdapter(mKeyboardAdapter);
+        mRv.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void initData() {
+        List<Integer> numberArray = new ArrayList<>();
+        for (int item : KEYBOARD_NUMBER) {
+            numberArray.add(item);
+        }
+        Collections.shuffle(numberArray);
+        for (Integer item : numberArray) {
+            data.add(new KeyboardItemBean(String.valueOf(item), KeyboardItemBean.KeyboardTag.TAG_NUMBER));
+        }
+        data.add(INDEX_BLANK_ITEM, new KeyboardItemBean("", KeyboardItemBean.KeyboardTag.TAG_BLANK));
+        data.add(new KeyboardItemBean("", KeyboardItemBean.KeyboardTag.TAG_DELETE));
     }
 
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.layout_keyboard, this, true);
-        findViewById(R.id.tv_one).setOnClickListener(this);
-        findViewById(R.id.tv_two).setOnClickListener(this);
-        findViewById(R.id.tv_three).setOnClickListener(this);
-        findViewById(R.id.tv_four).setOnClickListener(this);
-        findViewById(R.id.tv_five).setOnClickListener(this);
-        findViewById(R.id.tv_six).setOnClickListener(this);
-        findViewById(R.id.tv_seven).setOnClickListener(this);
-        findViewById(R.id.tv_eight).setOnClickListener(this);
-        findViewById(R.id.tv_nine).setOnClickListener(this);
-        findViewById(R.id.tv_zero).setOnClickListener(this);
-        findViewById(R.id.rl_delete).setOnClickListener(this);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        mMeasuredWidth = getMeasuredWidth();
-        mMeasuredHeight = getMeasuredHeight();
-        mSingleHeight = findViewById(R.id.tv_zero).getMeasuredHeight();
-        mSingleWidth = findViewById(R.id.tv_zero).getMeasuredWidth();
+        mRv = ((RecyclerView) findViewById(R.id.rv));
     }
 
     @Override
@@ -73,53 +85,11 @@ public class KeyboardView extends FrameLayout implements View.OnClickListener {
         setMeasuredDimension(Utils.getScreenSize(getContext(), Utils.KEY_GET_WIDTH), getMeasuredHeight());
     }
 
-    private void initPaint() {
-        mPaint = new Paint();
-        mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setColor(0xFFE0E0E0);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.rl_hide || i == R.id.rl_delete || i == R.id.tv_zero || i == R.id.tv_one || i == R.id.tv_two || i == R.id.tv_three || i == R.id.tv_four || i == R.id.tv_five || i == R.id.tv_six || i == R.id.tv_seven || i == R.id.tv_eight || i == R.id.tv_nine) {
-            if (mOnInputListener != null) {
-                mOnInputListener.onInput(v);
-            }
-
-        }
-    }
-
-    @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
-        drawBorder(canvas);
-        drawGridLine(canvas);
-    }
-
-    private void drawGridLine(Canvas canvas) {
-        mPaint.setStrokeWidth(1);
-        for (int i = 0; i < 4; i++) {
-            canvas.drawLine(0, Utils.dp2px(getContext(), 20) + mSingleHeight * i, mMeasuredWidth, Utils.dp2px(getContext(), 20) + mSingleHeight * i,mPaint);
-        }
-
-        for (int i = 0; i < 2; i++) {
-            canvas.drawLine((i+1)*mSingleWidth,Utils.dp2px(getContext(),20),(i+1)*mSingleWidth,mMeasuredHeight, mPaint);
-        }
-    }
-
-    private void drawBorder(Canvas canvas) {
-        mPaint.setStrokeWidth(2);
-        canvas.drawRect(0, 0, mMeasuredWidth, mMeasuredHeight, mPaint);
-    }
-
     public interface OnInputListener {
         void onInput(View view);
     }
 
     public void setInputListener(OnInputListener onInputListener) {
-        mOnInputListener = onInputListener;
+        mKeyboardAdapter.setOnInputListener(onInputListener);
     }
 }

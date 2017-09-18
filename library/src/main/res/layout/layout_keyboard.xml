@@ -9,116 +9,23 @@
         android:id="@+id/rl_hide"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_keyboard_bg">
-
+        android:background="@drawable/selector_keyboard_bg"
+        android:layout_marginTop="1px">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
             android:src="@drawable/arrow_bottom"/>
+
     </RelativeLayout>
 
-    <TableLayout
-        android:layout_below="@+id/rl_hide"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/tv_one"
-                style="@style/keyBoardViewChildView"
-                android:text="1"
-                />
-
-            <TextView
-                android:id="@+id/tv_two"
-                style="@style/keyBoardViewChildView"
-                android:text="2"
-                />
-
-            <TextView
-                android:id="@+id/tv_three"
-                style="@style/keyBoardViewChildView"
-                android:text="3"
-                />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/tv_four"
-                style="@style/keyBoardViewChildView"
-                android:text="4"
-
-                />
-
-            <TextView
-                android:id="@+id/tv_five"
-                style="@style/keyBoardViewChildView"
-                android:text="5"
-                />
-
-            <TextView
-                android:id="@+id/tv_six"
-                style="@style/keyBoardViewChildView"
-                android:text="6"
-                />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/tv_seven"
-                style="@style/keyBoardViewChildView"
-                android:text="7"
-                />
-
-            <TextView
-                android:id="@+id/tv_eight"
-                style="@style/keyBoardViewChildView"
-                android:text="8"
-                />
-
-            <TextView
-                android:id="@+id/tv_nine"
-                style="@style/keyBoardViewChildView"
-                android:text="9"
-                />
-        </TableRow>
-
-        <TableRow
-            android:weightSum="3"
-            >
-
-            <TextView
-                android:id="@+id/tv_blank"
-                style="@style/keyBoardViewChildView"
-                android:background="@android:color/transparent"
-                />
-
-            <TextView
-                android:id="@+id/tv_zero"
-                style="@style/keyBoardViewChildView"
-                android:text="0"
-                />
-
-            <RelativeLayout
-                android:id="@+id/rl_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                >
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/delete"/>
-            </RelativeLayout>
-        </TableRow>
-    </TableLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_hide"
+        android:overScrollMode="never"
+        android:scrollbars="none"/>
 
 </RelativeLayout>
